@@ -60,7 +60,7 @@
       <div id="side-nav">
         <ul id="nav">
             <li>
-                <a href="${pageContext.request.contextPath }/UserServlet?op=index">
+                <a href="javascript:;">
                     <i class="iconfont">&#xe6b8;</i>
                     <cite>用户管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
@@ -108,14 +108,14 @@
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>订单管理</cite>
+                    <cite>帖子管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="server/order-list.jsp">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表</cite>
+                            <cite>帖子列表</cite>
                         </a>
                     </li >
                 </ul>
@@ -123,7 +123,7 @@
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>分类管理</cite>
+                    <cite>模块管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
@@ -131,21 +131,6 @@
                         <a _href="cate.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>多级分类</cite>
-                        </a>
-                    </li >
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe723;</i>
-                    <cite>城市联动</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="city.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>三级地区联动</cite>
                         </a>
                     </li >
                 </ul>
@@ -191,87 +176,9 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="echarts1.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>拆线图</cite>
-                        </a>
-                    </li >
-                    <li>
                         <a _href="echarts2.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>柱状图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts3.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>地图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts4.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>饼图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts5.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>雷达图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts6.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>k线图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts7.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>热力图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts8.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>仪表图</cite>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe6b4;</i>
-                    <cite>图标字体</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="unicode.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>图标对应字体</cite>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe6b4;</i>
-                    <cite>其它页面</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="login.html" target="_blank">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>登录页面</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="error.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>错误页面</cite>
                         </a>
                     </li>
                 </ul>
@@ -285,7 +192,7 @@
     <div class="page-content">
         <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
           <ul class="layui-tab-title">
-            
+            <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
           </ul>
           <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
                 <dl>
@@ -296,7 +203,7 @@
           </div>
           <div class="layui-tab-content">
            <div class="layui-tab-item layui-show"id="showdate">
-                <%@ include file="member-list.jsp" %>
+                <%@ include file="welcome.jsp" %>
             </div> 
           </div>
           <div id="tab_show"></div>

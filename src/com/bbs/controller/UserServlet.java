@@ -51,21 +51,21 @@ public class UserServlet extends HttpServlet {
 		if("add".equals(op)){
 			//ִ增加用户的方法
 			saveUser(req,resp);
-		}else if("findEdit".equals(op)) {
+		}else if("findEdit".equals(op)){
 			findEdit(req,resp);
-		}else if("index".equals(op)) {
+		}else if("index".equals(op)){
 			findAll(req,resp);
-		}else if("upload".equals(op)) {
+		}else if("upload".equals(op)){
 			uploadUser(req,resp);
-		}else if("delAll".equals(op)) {
+		}else if("delAll".equals(op)){
 			delAll(req,resp);
-		}else if("delById".equals(op)) {
+		}else if("delById".equals(op)){
 			delById(req,resp);
-		}else if("serach".equals(op)) {
+		}else if("serach".equals(op)){
 			sreach(req,resp);
-		}else if("update".equals(op)) {
+		}else if("update".equals(op)){
 			updateUser(req,resp);
-		}else if("loginOut".equals(op)) {
+		}else if("loginOut".equals(op)){
 			loginOut(req,resp);
 		}
 	}
@@ -110,7 +110,7 @@ public class UserServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		req.getSession().setAttribute("lists", lists);
-		req.getRequestDispatcher("server/index.jsp").forward(req, resp);
+		req.getRequestDispatcher("server/member-list.jsp").forward(req, resp);
 	}
 
 	private void delById(HttpServletRequest req, HttpServletResponse resp) throws IOException {

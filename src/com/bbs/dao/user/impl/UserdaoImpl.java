@@ -26,7 +26,6 @@ public class UserdaoImpl implements com.bbs.dao.user.Userdao {
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			DataUtils.closeAll(null, null, rs);
