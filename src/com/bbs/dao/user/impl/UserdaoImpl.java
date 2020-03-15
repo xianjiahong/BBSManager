@@ -14,25 +14,24 @@ public class UserdaoImpl implements com.bbs.dao.user.Userdao {
 	private ResultSet rs = null;
 	@Override
 	public int Verification(String userId, String userPsw) {
-		//����Ҫִ�е�sql���
+		//创建要执行的SQL命令
 		String sql="select count(1) from bbs_user where userId=? and userPsw=?";
-		//������������
+		//创建传递的参数数组
 		Object[] parms= {userId,userPsw};
-		//�������ݿ⹤����ִ����Ӧ����
+		//调用工具类中的查询方法
 		rs=DataUtils.queryAll(sql, parms);
-		//��������
-				try {
-					if(rs.next()) {
-						return rs.getInt(1);
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally {
-					DataUtils.closeAll(null, null, rs);
+		//处理结果集
+		try {
+			if(rs.next()) {
+				return rs.getInt(1);
 			}
-				return 0;
-			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DataUtils.closeAll(null, null, rs);
+		}
+		return 0;
 	}
 
 	@Override
@@ -63,7 +62,6 @@ public class UserdaoImpl implements com.bbs.dao.user.Userdao {
 				lists.add(user);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			DataUtils.closeAll(null, null, rs);
@@ -101,6 +99,7 @@ public class UserdaoImpl implements com.bbs.dao.user.Userdao {
 	@Override
 	public int delAll(String[] uids) {
 		StringBuffer sql = new StringBuffer("delete from bbs_user where userId in(");
+		// 根据参数数组的长度，拼接锁需要的?号个数
 		for (int i = 0; i < uids.length; i++) {
 			sql.append("?");
 			if (i != uids.length-1) {

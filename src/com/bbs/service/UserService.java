@@ -6,8 +6,8 @@ import java.util.List;
 import com.bbs.entity.User;
 
 /**
- * �����û���ҵ�񷽷�
- * @author dell
+ * 用户模块的操作接口
+ * @author lindy
  *
  */
 public interface UserService {

@@ -10,7 +10,7 @@ import com.bbs.service.UserService;
 
 public class UserServiceImpl implements UserService {
 
-	//����dao�е�����
+	//创建数据访问层的对象
 	private Userdao dao=new UserdaoImpl();
 	@Override
 	public boolean Verification(String userId, String userPsw) {
@@ -42,7 +42,9 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public boolean delAll(String userIds) {
+		// 将字符串中的所有引号去掉，并截取[]中的数据
 		userIds = userIds.substring(1, userIds.lastIndexOf("]")).replaceAll("\"", "");
+		// 将字符窜进行拆分为数组
 		String[] uids = userIds.split(",");
 		int result=dao.delAll(uids);
 		if(result>0) {

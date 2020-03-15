@@ -32,6 +32,7 @@ public class Login extends HttpServlet {
 		boolean isOk=us.Verification(userId, userPsw);
 		//判断结果，根据结果进行页面跳转
 		if(isOk) {
+			req.getSession().setAttribute("userId", userId);
 			req.getRequestDispatcher("UserServlet?op=index").forward(req, resp);
 		}else {
 			resp.sendRedirect("login.html");

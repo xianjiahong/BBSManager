@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -64,8 +65,16 @@ public class UserServlet extends HttpServlet {
 			sreach(req,resp);
 		}else if("update".equals(op)) {
 			updateUser(req,resp);
+		}else if("loginOut".equals(op)) {
+			loginOut(req,resp);
 		}
 	}
+	private void loginOut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		// 清除保存在session中的用户名
+		req.getSession().removeAttribute("userId");
+		resp.sendRedirect("login.html");
+	}
+
 	private void updateUser(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		PrintWriter out = resp.getWriter();
 		String userEmail = req.getParameter("userEmail");
@@ -75,6 +84,8 @@ public class UserServlet extends HttpServlet {
 		User user = new User();
 		user.setUserId(userId);
 		user.setUserEmail(userEmail);
+		// 对密码进行MD5加密处理
+		userpsw = DigestUtils.md5Hex(userpsw);
 		user.setUserpsw(userpsw);
 		user.setUserSex(userSex);
 		boolean isOk = us.update(user);
@@ -140,13 +151,16 @@ public class UserServlet extends HttpServlet {
 		 //获得文件上传的请求方式
 		boolean isMultipart = ServletFileUpload.isMultipartContent(req); 
 		if(isMultipart) { //判断是否是二进制形式的数据上传
-			FileItemFactory fac=new DiskFileItemFactory(); //����һ���ļ��ϴ��Ķ���
-			ServletFileUpload upload=new ServletFileUpload(fac); //��ñ��е��������� ����10M
+			FileItemFactory fac=new DiskFileItemFactory(); //创建文件上传的工厂对象
+			ServletFileUpload upload=new ServletFileUpload(fac); 
+			//设置上传文件的最大为10M
 			upload.setFileSizeMax(10*1024*1024); 
 			try { 
-				List<FileItem> items =upload.parseRequest(req); //�������е����� 
+				List<FileItem> items =upload.parseRequest(req); 
+				//遍历获得的所有数据 
 				Iterator<FileItem> it=items.iterator(); 
-				while(it.hasNext()) { //ȡ��Ԫ�ض��� 
+				while(it.hasNext()) { 
+					//获得表单元素 
 					FileItem item=it.next();
 					//判斷是否是普通文件
 					if(item.isFormField()) { 
@@ -166,7 +180,7 @@ public class UserServlet extends HttpServlet {
 								break; 
 						 } 
 					}else { 
-						userPhoto=item.getName();
+					  userPhoto=item.getName();
 					  //实现文件的上传 
 					  File saveFile=new File(filePath,userPhoto);
 					  item.write(saveFile); 
@@ -181,6 +195,8 @@ public class UserServlet extends HttpServlet {
 				  e.printStackTrace(); 
 			} 
 		}
+		// 使用md5的加密方式对数据进行加密操作
+		 userpsw = DigestUtils.md5Hex(userpsw);
 		 // 將獲得的數據設置給用戶對象
 		 user.setUserId(userId); 
 		 user.setUserpsw(userpsw);
