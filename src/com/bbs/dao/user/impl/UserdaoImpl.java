@@ -1,0 +1,158 @@
+package com.bbs.dao.user.impl;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.bbs.commons.DataUtils;
+import com.bbs.entity.User;
+
+public class UserdaoImpl implements com.bbs.dao.user.Userdao {
+	private ResultSet rs = null;
+	@Override
+	public int Verification(String userId, String userPsw) {
+		//����Ҫִ�е�sql���
+		String sql="select count(1) from bbs_user where userId=? and userPsw=?";
+		//������������
+		Object[] parms= {userId,userPsw};
+		//�������ݿ⹤����ִ����Ӧ����
+		rs=DataUtils.queryAll(sql, parms);
+		//��������
+				try {
+					if(rs.next()) {
+						return rs.getInt(1);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					DataUtils.closeAll(null, null, rs);
+			}
+				return 0;
+			
+	}
+
+	@Override
+	public int save(User user) {
+		String sql = "INSERT INTO bbs_user(userId,userpsw,userEmail,userSex,userPhoto,userScore,userLevel,userCreateDate) VALUES(?,?,?,?,?,default,default,default)";
+		Object[] params = {user.getUserId(),user.getUserpsw(),user.getUserEmail(),user.getUserSex(),user.getUserPhoto()};
+		return DataUtils.executeUpdate(sql, params);
+	}
+
+	@Override
+	public List<User> getUserList() throws ParseException {
+		List<User> lists = new ArrayList<User>();
+		try {
+			String sql = "select * from bbs_user";
+			rs = DataUtils.queryAll(sql, null);
+			while (rs.next()) {
+				User user = new User();
+				user.setUserId(rs.getString("userId"));
+				user.setUserpsw(rs.getString("userpsw"));
+				user.setUserEmail(rs.getString("userEmail"));
+				user.setUserSex(rs.getString("userSex"));
+				user.setUserPhoto(rs.getString("userPhoto"));
+				user.setUserScore(rs.getInt("userScore"));
+				user.setUserLevel(rs.getInt("userLevel"));
+				user.setLevelDown(rs.getDate("userLock"));
+				user.setUserLock(rs.getDate("userLock"));
+				user.setUserCreateDate(rs.getDate("userCreateDate"));
+				lists.add(user);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DataUtils.closeAll(null, null, rs);
+		}
+		return lists;
+	}
+
+	@Override
+	public User findEdit(String userId) {
+		User user = new User();
+		try {
+			String sql = "select * from bbs_user where userId=?";
+			Object[] params = {userId};
+			rs = DataUtils.queryAll(sql, params);
+			if(rs.next()) {
+				user.setUserId(rs.getString("userId"));
+				user.setUserpsw(rs.getString("userpsw"));
+				user.setUserEmail(rs.getString("userEmail"));
+				user.setUserSex(rs.getString("userSex"));
+				user.setUserPhoto(rs.getString("userPhoto"));
+				user.setUserScore(rs.getInt("userScore"));
+				user.setUserLevel(rs.getInt("userLevel"));
+				user.setLevelDown(rs.getDate("userLock"));
+				user.setUserLock(rs.getDate("userLock"));
+				user.setUserCreateDate(rs.getDate("userCreateDate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DataUtils.closeAll(null, null, rs);
+		}
+		return user;
+	}
+
+	@Override
+	public int delAll(String[] uids) {
+		StringBuffer sql = new StringBuffer("delete from bbs_user where userId in(");
+		for (int i = 0; i < uids.length; i++) {
+			sql.append("?");
+			if (i != uids.length-1) {
+				sql.append(",");
+			}
+		}
+		sql.append(")");
+		return DataUtils.executeUpdate(sql.toString(), uids);
+	}
+
+	@Override
+	public int delById(String userId) {
+		String sql = "delete from bbs_user where userId=?";
+		Object[] params = {userId};
+		return DataUtils.executeUpdate(sql, params);
+	}
+
+	@Override
+	public List<User> findById(String userId) {
+		List<User> lists = new ArrayList<User>();
+		try {
+			String sql = "select * from bbs_user where userId like concat('%',?,'%')";
+			Object[] params = {userId};
+			rs = DataUtils.queryAll(sql, params);
+			while (rs.next()) {
+				User user = new User();
+				user.setUserId(rs.getString("userId"));
+				user.setUserpsw(rs.getString("userpsw"));
+				user.setUserEmail(rs.getString("userEmail"));
+				user.setUserSex(rs.getString("userSex"));
+				user.setUserPhoto(rs.getString("userPhoto"));
+				user.setUserScore(rs.getInt("userScore"));
+				user.setUserLevel(rs.getInt("userLevel"));
+				user.setLevelDown(rs.getDate("userLock"));
+				user.setUserLock(rs.getDate("userLock"));
+				user.setUserCreateDate(rs.getDate("userCreateDate"));
+				lists.add(user);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DataUtils.closeAll(null, null, rs);
+		}
+		return lists;
+	}
+
+	@Override
+	public int update(User user) {
+		String sql = "update bbs_user set userEmail=?,userpsw=?,userSex=? where userId=?";
+		Object[] params = {user.getUserEmail(),user.getUserpsw(),user.getUserSex(),user.getUserId()};
+		return DataUtils.executeUpdate(sql, params);
+	}
+
+}
