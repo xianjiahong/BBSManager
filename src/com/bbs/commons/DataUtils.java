@@ -5,21 +5,20 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 /**
- * Êı¾İ¿â¹¤¾ßÀà
- * @author lindy
+ * æ•°æ®åº“å·¥å…·ç±»
+ * @author ASUS
  *
  */
 public class DataUtils {
-	// 1.´´½¨ĞèÒªÓÃµ½µÄ×Ö·û´®±äÁ¿£¬²¢¸³Öµ
+	//åˆ›å»ºéœ€è¦ç”¨åˆ°çš„å­—ç¬¦ä¸²å˜é‡ï¼Œå¹¶èµ‹å€¼Öµ
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://localhost:3306/bbs?"
 			+ "characterEncoding=UTF-8&useUnicode=true";
 	private static final String USERNAME = "root";
-	private static final String PASSWORD = "root";
+	private static final String PASSWORD = "1234";
 	
-	// 2.´´½¨Ò»¸ö»ñµÃÊı¾İ¿âÁ¬½ÓµÄ·½·¨
+	// åˆ›å»ºä¸€ä¸ªè·å¾—æ•°æ®åº“è¿æ¥çš„æ–¹æ³•
 	public static Connection createConnection() {
 		Connection conn = null;
 		try {
@@ -33,7 +32,7 @@ public class DataUtils {
 		return conn;
 	}
 	
-	// 3.´´½¨Ò»¸öÊÍ·Å×ÊÔ´µÄ·½·¨
+	// åˆ›å»ºä¸€ä¸ªé‡Šæ”¾èµ„æºçš„æ–¹æ³•
 	public static void closeAll(Connection conn,PreparedStatement pst
 			,ResultSet rs) {
 		try {
@@ -48,20 +47,20 @@ public class DataUtils {
 		}
 	}
 	
-	// 4.´´½¨Í¨ÓÃµÄÔö¡¢É¾¡¢¸Ä·½·¨
+	//åˆ›å»ºé€šç”¨çš„å¢ã€åˆ ã€æ”¹æ–¹æ³•
 	public static int executeUpdate(String sql,Object ... parms) {
 		Connection conn = createConnection();
 		PreparedStatement pst = null;
 		try {
 			pst = conn.prepareStatement(sql);
-			// Èç¹û²ÎÊıÊı¾İ²»Îª¿Õ
+			// å¦‚æœå‚æ•°æ•°æ®ä¸ä¸ºç©º
 			if (parms != null) {
-				// ÎªÕ¼Î»·û¸³Öµ
+				// ä¸ºå ä½ç¬¦èµ‹å€¼
 				for (int i = 0; i < parms.length; i++) {
 					pst.setObject((i+1), parms[i]);
 				}
 			}
-			// µ÷ÓÃ·½·¨²¢·µ»Ø½á¹û
+			// è°ƒç”¨æ–¹æ³•å¹¶è¿”å›ç»“æœ
 			return pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -71,17 +70,16 @@ public class DataUtils {
 		}
 		return 0;
 	}
-	
-	// 5.´´½¨Í¨ÓÃµÄ²éÑ¯·½·¨
+	//åˆ›å»ºé€šç”¨çš„æŸ¥è¯¢æ–¹æ³•
 	public static ResultSet queryAll(String sql,Object ... params) {
-		ResultSet rs = null;
+	ResultSet rs = null;
 		Connection conn = createConnection();
 		PreparedStatement pst = null;
 		try {
 			pst = conn.prepareStatement(sql);
-			// Èç¹û²ÎÊıÊı¾İ²»Îª¿Õ
+			// å¦‚æœå‚æ•°æ•°æ®ä¸ä¸ºç©º
 			if (params != null) {
-				// ÎªÕ¼Î»·û¸³Öµ
+				// ä¸ºå ä½ç¬¦èµ‹å€¼
 				for (int i = 0; i < params.length; i++) {
 					pst.setObject((i+1), params[i]);
 				}

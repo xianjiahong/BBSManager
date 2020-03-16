@@ -39,7 +39,7 @@ public class UserdaoImpl implements com.bbs.dao.user.Userdao {
 		Object[] params = {user.getUserId(),user.getUserpsw(),user.getUserEmail(),user.getUserSex(),user.getUserPhoto()};
 		return DataUtils.executeUpdate(sql, params);
 	}
-
+	//用户列表信息
 	@Override
 	public List<User> getUserList() throws ParseException {
 		List<User> lists = new ArrayList<User>();
@@ -67,7 +67,7 @@ public class UserdaoImpl implements com.bbs.dao.user.Userdao {
 		}
 		return lists;
 	}
-
+	//根据id查找用户信息
 	@Override
 	public User findEdit(String userId) {
 		User user = new User();
@@ -94,9 +94,10 @@ public class UserdaoImpl implements com.bbs.dao.user.Userdao {
 		}
 		return user;
 	}
-
+	//根据id删除用户信息
 	@Override
 	public int delAll(String[] uids) {
+		
 		StringBuffer sql = new StringBuffer("delete from bbs_user where userId in(");
 		// 根据参数数组的长度，拼接锁需要的?号个数
 		for (int i = 0; i < uids.length; i++) {
@@ -106,6 +107,7 @@ public class UserdaoImpl implements com.bbs.dao.user.Userdao {
 			}
 		}
 		sql.append(")");
+		// delete from bbs_user where userid in(test001,test002)
 		return DataUtils.executeUpdate(sql.toString(), uids);
 	}
 
@@ -115,7 +117,7 @@ public class UserdaoImpl implements com.bbs.dao.user.Userdao {
 		Object[] params = {userId};
 		return DataUtils.executeUpdate(sql, params);
 	}
-
+	
 	@Override
 	public List<User> findById(String userId) {
 		List<User> lists = new ArrayList<User>();

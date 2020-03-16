@@ -128,6 +128,7 @@ public class UserServlet extends HttpServlet {
 
 	private void delAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String userIds = req.getParameter("userIds");
+		//["test001","test002"]
 		PrintWriter out = resp.getWriter();
 		boolean isOk = us.delAll(userIds);
 		if(isOk) {
@@ -137,7 +138,7 @@ public class UserServlet extends HttpServlet {
 		}
 		out.flush();
 	}
-	private User user = new User();
+	private User user = new User();// 当文件上传成功后，给这个用户复制，然后在增加的时候使用这个对象
 	private void uploadUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String userEmail = null;
 		String userId = null;
@@ -162,7 +163,7 @@ public class UserServlet extends HttpServlet {
 				while(it.hasNext()) { 
 					//获得表单元素 
 					FileItem item=it.next();
-					//判斷是否是普通文件
+					//判断是否是普通文件
 					if(item.isFormField()) { 
 						 String name=item.getFieldName();//得到普通表單的name值ֵ
 						 switch(name) { 
@@ -183,7 +184,8 @@ public class UserServlet extends HttpServlet {
 					  userPhoto=item.getName();
 					  //实现文件的上传 
 					  File saveFile=new File(filePath,userPhoto);
-					  item.write(saveFile); 
+					  item.write(saveFile);
+					  // 向客户端响应一个上传成功的标识值
 					  out.write("{\"code\":0}");
 					}
 				} 
@@ -197,7 +199,7 @@ public class UserServlet extends HttpServlet {
 		}
 		// 使用md5的加密方式对数据进行加密操作
 		 userpsw = DigestUtils.md5Hex(userpsw);
-		 // 將獲得的數據設置給用戶對象
+		 // 将获得的数据设置用户对象
 		 user.setUserId(userId); 
 		 user.setUserpsw(userpsw);
 		 user.setUserEmail(userEmail); 
@@ -231,6 +233,7 @@ public class UserServlet extends HttpServlet {
 	private void saveUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 
 		PrintWriter out = response.getWriter();
+		// user 就是放到uploadUser方法前面的用户对象
 		boolean isOk = us.save(user);
 		if(isOk) {
 			out.write("true");

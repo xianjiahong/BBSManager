@@ -1,8 +1,6 @@
 package com.bbs.entity;
 /**
- * �����ݿ���bbs_user���Ӧ��Java��
- * @author lindy
- *
+ * 数据库表对应的实体类
  */
 
 import java.io.Serializable;
@@ -14,11 +12,11 @@ public class User implements Serializable{
 	private String userEmail;
 	private String userSex;
 	private String userPhoto;
-	private double userScore;// ����
-	private int userLevel;// �û��ȼ���Ĭ��Ϊ1
-	private Date levelDown;// �����Ľ�ֹʱ��
-	private Date userLock;// �����Ľ�ֹʱ��
-	private Date userCreateDate;// ����ʱ��
+	private double userScore;
+	private int userLevel;
+	private Date levelDown;
+	private Date userLock;
+	private Date userCreateDate;
 	public String getUserId() {
 		return userId;
 	}
